@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 class NewsListAdapter(private val listener: NewsItemClicked) :
     RecyclerView.Adapter<NewsViewHolder>() {
 
-    private val items = ArrayList<News>()
+    private val items = ArrayList<Article>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
@@ -26,14 +26,14 @@ class NewsListAdapter(private val listener: NewsItemClicked) :
         val currentItem = items[position]
         holder.title.text = currentItem.title
         holder.author.text = currentItem.author
-        Glide.with(holder.itemView.context).load(currentItem.imageUrl).into(holder.image)
+        Glide.with(holder.itemView.context).load(currentItem.urlToImage).into(holder.image)
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    fun updateNews(updatedNews: ArrayList<News>) {
+    fun updateNews(updatedNews: ArrayList<Article>) {
         items.clear()
         items.addAll(updatedNews)
 
@@ -48,5 +48,5 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 }
 
 interface NewsItemClicked {
-    fun onItemClicked(item: News)
+    fun onItemClicked(item: Article)
 }
